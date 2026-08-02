@@ -43,7 +43,7 @@ export default function Header() {
       <Container className="flex justify-between items-center">
         <div className="flex items-center gap-8">
           <Link href="/">
-            <Logotype className="!h-[30px] sm:h-[40px]" />
+            <Logotype className="!h-[50px] sm:h-[60px]" />
           </Link>
 
           <nav className="hidden md:flex gap-4 text-sm">
