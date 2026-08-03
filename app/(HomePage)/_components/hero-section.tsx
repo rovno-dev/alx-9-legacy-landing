@@ -3,132 +3,87 @@
 import { useState, useEffect } from "react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { GithubLogotypeMonoIcon } from "@/components/icons/logotypes/github-logotype-mono-icon";
-import LogotypeIcon from "@/components/layout/logotype/logotype-icon";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { ArticleIcon, PublicIcon } from "@/components/icons";
+import { Countdown } from "./shared";
 
-function HeroFancy() {
-  const [stars, setStars] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function HeroSection() {
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
-    async function fetchStars() {
-      try {
-        const res = await fetch(
-          "https://api.github.com/repos/niyazgim/unideka-ui-template"
-        );
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data = await res.json();
-        setStars(data.stargazers_count);
-      } catch {
-        setStars(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchStars();
+    // Fallback to hide preloader if iframe onLoad doesn't fire quickly enough
+    const timer = setTimeout(() => setVideoLoaded(true), 4000);
+    return () => clearTimeout(timer);
   }, []);
 
-  const starsDisplay = loading ? "…" : stars !== null ? stars.toLocaleString() : "—";
-
   return (
-    <Card className="relative overflow-hidden p-8 border-(--outline) bg-(--card) shadow-xl group">
-      {/* Logotype background – peeking from the right edge, half hidden */}
-      <div className="absolute inset-0 pointer-events-none">
-        <LogotypeIcon
-          width={400}
-          height={400}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 animate-[breathe_8s_ease-in-out_infinite]"
-          style={{ opacity: 0.05 }}
-        />
-      </div>
-
-      {/* Decorative blobs */}
-      <div className="absolute -top-24 -right-24 size-64 rounded-full bg-primary/5 blur-3xl" />
-      <div className="absolute -bottom-16 -left-16 size-48 rounded-full bg-primary/5 blur-3xl" />
-
-      <div className="relative z-10 space-y-6">
-        <div>
-          <p className="text-body-2 text-(--on-bg-low)">
-            *For designers
-          </p>
-          <p className="text-body-3 text-(--on-bg-low)">
-            It has Figma Community file too. Just copy AI-optimized components and add your beautiful design!
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          <Button
-            asChild
-            variant="outlined"
-            size="large"
-            className="w-full gap-2 group/btn relative overflow-hidden border-primary/30 hover:border-primary"
-          >
-            <Link
-              href="https://www.figma.com/community/file/1622312904371459207"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <p>Figma Community file</p>
-            </Link>
-          </Button>
-
-          {/* <div className="grid grid-cols-2 gap-3 text-center">
-            <div className="rounded-lg border border-(--outline) p-3">
-              <p className="text-display-4 text-(--on-bg-high)">{starsDisplay}</p>
-              <p className="text-body-6 text-(--on-bg-low)">Stars</p>
-            </div>
-            <div className="rounded-lg border border-(--outline) p-3">
-              <p className="text-display-4 text-(--on-bg-high)">Apache 2.0</p>
-              <p className="text-body-6 text-(--on-bg-low)">License</p>
-            </div>
-          </div> */}
-        </div>
-
-        <div className="border-t border-(--outline) pt-4">
-          <p className="text-body-4 text-(--on-bg-low) text-center">
-            Built with ❤️ by Niyaz Gimadiev
-          </p>
-        </div>
-      </div>
-    </Card>
-  );
-}
-
-export function HeroSection() {
-  return (
-    <section className="relative py-8 md:py-16">
-      <Container>
-        <div className="flex flex-col md:flex-row items-start gap-8">
-          {/* Left column */}
-          <div className="flex-1 text-center md:text-left animate-reveal [animation-delay:0ms]">
-            <h1 className="text-5xl md:text-7xl font-heading font-bold text-(--on-bg-high) mb-4">
-              Unideka UI
-            </h1>
-            <p className="text-body-2 md:text-body-1 text-(--on-bg-medium) mb-8 animate-reveal [animation-delay:100ms]">
-              A modern, accessible component library built with React, Tailwind CSS, and Radix UI primitives.
-            </p>
-            <Button
-              asChild
-              variant="filled"
-              size="large"
-              className="text-lg px-8 py-4 animate-reveal [animation-delay:200ms]"
-            >
-              <Link
-                href="https://github.com/niyazgim/unideka-ui-template"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GithubLogotypeMonoIcon className="size-5" />
-                GitHub Repository
-              </Link>
-            </Button>
+    <section className="relative min-h-[calc(100dvh-70px)] flex items-center py-8 md:py-16 overflow-hidden border-b border-(--outline)">
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* Preloader Overlay */}
+        <div className={`absolute inset-0 bg-(--bg) z-10 transition-opacity duration-700 flex items-center justify-center ${videoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="flex flex-col items-center gap-4">
+            <div className="size-12 border-4 border-(--primary) border-t-transparent rounded-full animate-spin" />
+            <p className="text-sm font-heading text-(--on-bg-low) animate-pulse">Загрузка видео...</p>
           </div>
+        </div>
 
-          {/* Right column */}
-          <div className="flex-1 animate-reveal [animation-delay:300ms]">
-            <HeroFancy />
+        {/* Kinescope Video Iframe */}
+        <iframe
+          src="https://kinescope.io/embed/wJ6WmWZCkVYZr6yEDvYmLo?autoplay=1&muted=1&loop=1"
+          className="absolute inset-0 w-full h-full object-cover"
+          allow="autoplay; encrypted-media; fullscreen; accelerometer; gyroscope; picture-in-picture"
+          allowFullScreen
+          onLoad={() => setVideoLoaded(true)}
+          title="CUZOI ALX-9 Promo Video"
+        />
+
+        {/* Fallback Background Gradient */}
+        <div className="absolute inset-0 bg-(--bg) opacity-20" />
+        
+        {/* Glow Effects */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_30%_20%,rgba(51,109,255,0.08),transparent_70%)] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[radial-gradient(ellipse_at_70%_80%,rgba(51,109,255,0.06),transparent_70%)] pointer-events-none" />
+        
+        {/* Dark Tint Overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+      </div>
+
+      <Container className="relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-(--outline)/50 bg-(--card)/40 backdrop-blur-sm text-xs font-medium text-(--on-bg-low)">
+              <Badge variant="glass-static" size="chip-small" className="font-heading">2030</Badge>
+              <span className="font-sans text-white">Выставочный проект</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-heading font-bold leading-tight tracking-tight text-white">
+              CUZOI <span className="text-(--primary)">ALX-9</span>
+            </h1>
+            <p className="text-lg md:text-xl font-sans text-gray-200 leading-relaxed max-w-lg">
+              Интерактивная аудиовизуальная инсталляция на стыке искусства и технологий. Представлена на международной выставке современного искусства.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button asChild variant="filled" size="large" className="font-heading shadow-lg shadow-(--primary)/30">
+                <Link href="#event">Узнать больше</Link>
+              </Button>
+              <Button asChild variant="outlined" size="large" className="font-heading bg-black/20 backdrop-blur-sm border-white/20 text-white hover:bg-white/10">
+                <Link href="#tickets">Купить билет</Link>
+              </Button>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-(--outline)/50 bg-(--card)/40 backdrop-blur-sm text-white text-sm">
+                <ArticleIcon className="size-4" />
+                28 февраля 2030
+              </span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-(--outline)/50 bg-(--card)/40 backdrop-blur-sm text-white text-sm">
+                <PublicIcon className="size-4" />
+                Платформа 9
+              </span>
+            </div>
+            <Countdown targetDate={new Date("February 28, 2030 19:00:00 GMT+2")} />
+          </div>
+          <div className="relative hidden lg:flex justify-center items-center">
+            {/* Empty space for video to breathe on desktop, or add a small component if desired */}
           </div>
         </div>
       </Container>
