@@ -9,6 +9,7 @@ import {
   PinterestLogotypeMonoIcon,
 } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import LogotypeIcon from "./logotype/logotype-icon";
 
 function SocialMediaIcons({ className }: { className?: string }) {
   const socialIcons = [
@@ -35,109 +36,48 @@ function SocialMediaIcons({ className }: { className?: string }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-card pb-[100px] pt-[30px] sm:pt-[50px] border-t border-t-outline">
+    <footer className="bg-(--bg) border-t border-(--outline) py-16 mt-auto">
       <Container>
-        <div className="flex flex-col gap-8">
-          {/* Top row: logotype + theme switcher + social */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <Logotype className="h-8 sm:h-10 w-auto" />
-              <ThemeSwitcher />
+        <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <LogotypeIcon className="h-6 w-auto" />
+              <span className="font-heading font-bold text-xl">ALX-9</span>
             </div>
-            <SocialMediaIcons className="" />
+            <p className="text-sm font-sans text-(--on-bg-low) max-w-xs">
+              Демонстрационный проект, созданный в рамках портфолио. Все совпадения с реальными событиями и организациями случайны.
+            </p>
+            <ThemeSwitcher />
           </div>
-
-          {/* Links grid */}
-          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-heading-3 text-(--on-bg-medium) mb-2">Company</h3>
-              <ul className="flex flex-col gap-1.5">
-                <li>
-                  <Link href="/about" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/careers" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Careers
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-heading-3 text-(--on-bg-medium) mb-2">Resources</h3>
-              <ul className="flex flex-col gap-1.5">
-                <li>
-                  <Link href="/docs" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Documentation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/api" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    API Reference
-                  </Link>
-                </li>
-                <li>
-                  <Link href="https://github.com/niyazgim/unideka-ui-template" target="_blank" rel="noopener noreferrer" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    GitHub
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-heading-3 text-(--on-bg-medium) mb-2">Legal</h3>
-              <ul className="flex flex-col gap-1.5">
-                <li>
-                  <Link href="/privacy" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/cookies" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Cookie Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-heading-3 text-(--on-bg-medium) mb-2">Connect</h3>
-              <ul className="flex flex-col gap-1.5">
-                <li>
-                  <Link href="/contact" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/newsletter" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Newsletter
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/support" className="text-body-3 text-(--on-bg-low) hover:text-(--on-bg-high) transition-colors">
-                    Support
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div> */}
-
-          {/* Bottom: copyright */}
-          <div className="pt-4 text-center text-body-5 text-(--on-bg-low)">
-            © 2026 Niyaz Gimadiev with ❤️
+          <div>
+            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-(--on-bg-low) mb-4">Навигация</h4>
+            <ul className="space-y-2 font-sans text-sm">
+              <li><Link href="#about" className="hover:text-(--primary) transition-colors">Концепция</Link></li>
+              <li><Link href="#event" className="hover:text-(--primary) transition-colors">Что ждет</Link></li>
+              <li><Link href="#schedule" className="hover:text-(--primary) transition-colors">Программа</Link></li>
+              <li><Link href="#tickets" className="hover:text-(--primary) transition-colors">Билеты</Link></li>
+            </ul>
           </div>
+          <div>
+            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-(--on-bg-low) mb-4">Информация</h4>
+            <ul className="space-y-2 font-sans text-sm">
+              <li><Link href="#" className="hover:text-(--primary) transition-colors">Политика конфиденциальности</Link></li>
+              <li><Link href="#" className="hover:text-(--primary) transition-colors">Условия использования</Link></li>
+              <li><Link href="#" className="hover:text-(--primary) transition-colors">Контактная информация</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-(--on-bg-low) mb-4">Социальные сети</h4>
+            <ul className="space-y-2 font-sans text-sm">
+              <li><Link href="#" className="flex items-center gap-2 hover:text-(--primary) transition-colors"><TelegramLogotypeMonoIcon className="size-4" /> Telegram</Link></li>
+              <li><Link href="#" className="flex items-center gap-2 hover:text-(--primary) transition-colors"><VKLogotypeMonoIcon className="size-4" /> VKontakte</Link></li>
+              <li><Link href="#" className="flex items-center gap-2 hover:text-(--primary) transition-colors"><DprofileLogotypeMonoIcon className="size-4" /> Dprofile</Link></li>
+            </ul>
+          </div>
+        </div>
+        <div className="border-t border-(--outline) pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-sans text-(--on-bg-low)">
+          <span>&copy; 2030 CUZOI ALX-9. Демонстрационный проект.</span>
+          <span>Design & Code: Niyaz Gimadiev</span>
         </div>
       </Container>
     </footer>

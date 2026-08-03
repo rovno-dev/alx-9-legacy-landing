@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { NavLink } from "./nav-link";
 import { GithubLogotypeMonoIcon } from "../icons/logotypes/github-logotype-mono-icon";
 import { ROUTES } from "@/utils/constants/routes";
+import LogotypeIcon from "./logotype/logotype-icon";
 
 export default function Header() {
   const [stars, setStars] = useState<number | null>(null);
@@ -34,45 +35,20 @@ export default function Header() {
   const starsDisplay = loading ? "…" : stars !== null ? stars.toLocaleString() : "—";
 
   return (
-    <header
-      className="h-[55px] md:h-[70px] 
-      fixed top-0 left-0 right-0 w-full z-50 
-      flex items-center
-      bg-(--card-glass) backdrop-blur-glass border-b border-b-(--card-glass)"
-    >
-      <Container className="flex justify-between items-center">
-        <div className="flex items-center gap-8">
-          <Link href="/">
-            <Logotype className="!h-[50px] sm:h-[60px]" />
-          </Link>
-
-          <nav className="hidden md:flex gap-4 text-sm">
-            {/* <NavLink href={ROUTES.job}>Вакансии</NavLink> */}
-            {/* <NavLink href={ROUTES.blog.href}>Блог</NavLink> */}
-          </nav>
-        </div>
-
-        <Button
-          asChild
-          variant="outlined"
-          size="small"
-          className="gap-2 border-primary/30 hover:border-primary text-xs px-3 py-1 h-8"
-        >
-          <a
-            href="https://github.com/niyazgim/unideka-ui-template"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1"
-          >
-            <GithubLogotypeMonoIcon className="size-4" />
-            <span className="hidden sm:inline">GH repo</span>
-            <span className="text-(--on-bg-low) text-[10px]">·</span>
-            <span className="font-mono text-[10px]">{starsDisplay} ⭐</span>
-            <span className="hidden sm:block text-(--on-bg-low) text-[10px]">·</span>
-            <span className="hidden sm:block text-[10px] font-mono text-(--on-bg-low)">Apache 2.0</span>
-          </a>
-        </Button>
-      </Container>
+    <header className="fixed top-0 left-0 right-0 z-50 h-[70px] bg-(--card-glass) backdrop-blur-glass border-b border-(--card-glass) px-6 flex items-center justify-between">
+      <Link href="/" className="flex items-center gap-2">
+        <Logotype className="h-14" />
+      </Link>
+      <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-(--on-bg-low)">
+        <Link href="#about" className="hover:text-(--primary) transition-colors">Концепция</Link>
+        <Link href="#event" className="hover:text-(--primary) transition-colors">Мероприятие</Link>
+        <Link href="#schedule" className="hover:text-(--primary) transition-colors">Программа</Link>
+        <Link href="#tickets" className="hover:text-(--primary) transition-colors">Билеты</Link>
+        <Link href="#faq" className="hover:text-(--primary) transition-colors">FAQ</Link>
+      </nav>
+      <Button asChild variant="filled" size="small" className="font-heading">
+        <Link href="#tickets">Купить билет</Link>
+      </Button>
     </header>
   );
 }
