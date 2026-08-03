@@ -7,7 +7,6 @@ import Logotype from "./logotype/logotype";
 import { Button } from "../ui/button";
 import { NavLink } from "./nav-link";
 import { GithubLogotypeMonoIcon } from "../icons/logotypes/github-logotype-mono-icon";
-import { ROUTES } from "@/utils/constants/routes";
 
 export default function Header() {
   const [stars, setStars] = useState<number | null>(null);
@@ -32,82 +31,124 @@ export default function Header() {
     fetchStars();
   }, []);
 
+  // Lock scrolling when mobile modal menu is active
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
   const starsDisplay = loading ? "…" : stars !== null ? stars.toLocaleString() : "—";
 
   return (
-    <header
-      className="h-[70px] fixed top-0 left-0 right-0 w-full z-50 
-      flex items-center bg-(--card-glass) backdrop-blur-glass border-b border-b-(--card-glass)"
-    >
-      <Container className="flex justify-between items-center relative">
-        <div className="flex items-center gap-8">
+    <>
+      <header
+        className="h-[70px] fixed top-0 left-0 right-0 w-full z-50 
+        flex items-center bg-(--card-glass) backdrop-blur-md border-b border-(--outline)/30"
+      >
+        <Container className="flex justify-between items-center relative">
+          <div className="flex items-center gap-8">
+            <Link href="/">
+              <Logotype className="!h-[30px] sm:h-[40px] w-auto" />
+            </Link>
+
+            <nav className="hidden md:flex gap-4 text-sm font-heading text-(--on-bg-low)">
+              <NavLink href="#about">Концепция</NavLink>
+              <NavLink href="#event">Мероприятие</NavLink>
+              <NavLink href="#schedule">Программа</NavLink>
+              <NavLink href="#tickets">Билеты</NavLink>
+            </nav>
+          </div>
+
+          <div className="flex items-center gap-2 md:gap-4">
+            <Button
+              asChild
+              variant="outlined"
+              size="small"
+              className="hidden sm:flex gap-2 border-primary/30 hover:border-primary text-xs px-3 py-1 h-8"
+            >
+              <a
+                href="https://github.com/rovno-dev/alx-9-legacy-landing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1"
+              >
+                <GithubLogotypeMonoIcon className="size-4" />
+                <span className="hidden sm:inline">GH repo</span>
+                <span className="text-(--on-bg-low) text-[10px]">·</span>
+                <span className="font-mono text-[10px]">{starsDisplay} ⭐</span>
+              </a>
+            </Button>
+
+            {/* Open Burger Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="block md:hidden p-2 space-y-1.5 focus:outline-none text-(--on-bg-high)"
+              aria-label="Open menu"
+            >
+              <span className="block w-6 h-0.5 bg-current" />
+              <span className="block w-6 h-0.5 bg-current" />
+              <span className="block w-6 h-0.5 bg-current" />
+            </button>
+          </div>
+        </Container>
+      </header>
+
+      {/* 
+        FIXED FULLSCREEN GLASS OVERLAY 
+        Uses native design tokens (`var(--card)`) mixed with a glass blur layout matrix 
+      */}
+      <div
+        className={`fixed inset-0 w-full h-full z-[100] bg-color-mix(in srgb, var(--card), transparent 15%) backdrop-blur-xl transition-all duration-300 flex flex-col justify-between p-8 md:hidden ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
+      >
+        {/* Header section inside menu for branding and custom clear close trigger action */}
+        <div className="flex justify-between items-center w-full">
           <Link href="/">
-            <Logotype className="!h-[30px] sm:h-[40px]" />
+            <Logotype className="!h-[30px] sm:h-[40px] w-auto" />
           </Link>
 
-          <nav className="hidden md:flex gap-4 text-sm font-heading text-(--on-bg-low)">
-            <NavLink href="#about">Концепция</NavLink>
-            <NavLink href="#event">Мероприятие</NavLink>
-            <NavLink href="#schedule">Программа</NavLink>
-            <NavLink href="#tickets">Билеты</NavLink>
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-2 md:gap-4">
-          <Button
-            asChild
-            variant="outlined"
-            size="small"
-            className="hidden sm:flex gap-2 border-primary/30 hover:border-primary text-xs px-3 py-1 h-8"
-          >
-            <a
-              href="https://github.com/rovno-dev/alx-9-legacy-landing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1"
-            >
-              <GithubLogotypeMonoIcon className="size-4" />
-              <span className="hidden sm:inline">GH repo</span>
-              <span className="text-(--on-bg-low) text-[10px]">·</span>
-              <span className="font-mono text-[10px]">{starsDisplay} ⭐</span>
-            </a>
-          </Button>
-
-          {/* Burger Menu Button */}
+          {/* Close Action Trigger matching screenshot element parameters */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="block md:hidden p-2 space-y-1.5 focus:outline-none"
-            aria-label="Toggle menu"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 text-(--on-bg-high) hover:opacity-80 transition-opacity focus:outline-none"
+            aria-label="Close menu"
           >
-            <span className={`block w-6 h-0.5 bg-current transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-current transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-6 h-0.5 bg-current transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
 
-        {/* Mobile Navigation Overlay */}
-        <div
-          className={`fixed top-[70px] left-0 right-0 bottom-0 bg-(--bg)/95 backdrop-blur-md border-t border-(--outline) p-6 flex flex-col gap-6 transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-            } md:hidden`}
-        >
-          <nav className="flex flex-col gap-4 text-lg font-heading text-(--on-bg-high)">
-            <Link href="#about" onClick={() => setIsMobileMenuOpen(false)}>Концепция</Link>
-            <Link href="#event" onClick={() => setIsMobileMenuOpen(false)}>Мероприятие</Link>
-            <Link href="#schedule" onClick={() => setIsMobileMenuOpen(false)}>Программа</Link>
-            <Link href="#tickets" onClick={() => setIsMobileMenuOpen(false)}>Билеты</Link>
-          </nav>
+        {/* Large Scale Display Links Navigation Blocks */}
+        <nav className="flex flex-col gap-6 text-3xl font-heading tracking-wide text-(--on-bg-high) my-auto pl-2">
+          <Link href="#about" className="hover:text-(--primary) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Концепция</Link>
+          <Link href="#event" className="hover:text-(--primary) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Мероприятие</Link>
+          <Link href="#schedule" className="hover:text-(--primary) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Программа</Link>
+          <Link href="#tickets" className="hover:text-(--primary) transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Билеты</Link>
+        </nav>
+
+        {/* Bottom Menu Action Items Container Block */}
+        <div className="w-full space-y-4">
           <Button
             asChild
             variant="outlined"
-            className="w-full justify-center"
+            className="w-full justify-center h-12 text-sm border-(--outline)/60 text-(--on-bg-high) bg-white/5 backdrop-blur-sm"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <a href="https://github.com/rovno-dev/alx-9-legacy-landing" target="_blank">
-              <GithubLogotypeMonoIcon className="size-4" /> GitHub
+            <a href="https://github.com/rovno-dev/alx-9-legacy-landing" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              <GithubLogotypeMonoIcon className="size-4" />
+              <span>GitHub Repository</span>
+              <span className="font-mono text-xs opacity-60">({starsDisplay} ⭐)</span>
             </a>
           </Button>
         </div>
-      </Container>
-    </header>
+      </div>
+    </>
   );
 }
