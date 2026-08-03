@@ -9,11 +9,11 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-(--bg)" id="testimonials">
+    <section className="py-10 md:py-16 bg-(--bg)" id="testimonials">
       <Container>
         <span className="inline-block text-xs font-heading font-semibold uppercase tracking-wider text-(--primary) mb-4">Отзывы</span>
-        <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-6">Что говорят посетители</h2>
-        <p className="text-body-2 font-sans text-(--on-bg-medium) max-w-2xl mb-8">Реальные голоса из сообщества.</p>
+        <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-4">Что говорят посетители</h2>
+        <p className="text-body-2 font-sans text-(--on-bg-medium) max-w-2xl mb-6">Реальные голоса из сообщества.</p>
         <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((t, idx) => (
             <Card key={idx} className="p-6 border-(--outline)">

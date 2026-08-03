@@ -9,11 +9,11 @@ export default function SponsorsSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-(--card)" id="sponsors">
+    <section className="py-10 md:py-16 bg-(--card)" id="sponsors">
       <Container>
         <span className="inline-block text-xs font-heading font-semibold uppercase tracking-wider text-(--primary) mb-4">Партнёры</span>
-        <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-6">Проект поддерживают</h2>
-        <p className="text-body-2 font-sans text-(--on-bg-medium) max-w-2xl mb-8">Организации, которые делают это событие возможным.</p>
+        <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-4">Проект поддерживают</h2>
+        <p className="text-body-2 font-sans text-(--on-bg-medium) max-w-2xl mb-6">Организации, которые делают это событие возможным.</p>
         {groups.map((group) => (
           <div key={group.tier} className="mb-8 last:mb-0">
             <h4 className="text-sm font-heading font-semibold uppercase tracking-wider text-(--on-bg-low) mb-4 border-b border-(--outline) pb-2">{group.tier}</h4>

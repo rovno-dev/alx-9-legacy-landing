@@ -102,40 +102,40 @@ export default function TicketsSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-(--card)" id="tickets">
+    <section className="py-10 md:py-16 bg-(--card)" id="tickets">
       <Container>
         <span className="inline-block text-xs font-heading font-semibold uppercase tracking-wider text-(--primary) mb-4">
           Билеты
         </span>
-        <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-6">
+        <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-4">
           Выберите свой формат
         </h2>
-        <p className="text-body-2 font-sans text-(--on-bg-medium) max-w-2xl mb-8">
+        <p className="text-body-2 font-sans text-(--on-bg-medium) max-w-2xl mb-6">
           Все цены в рублях.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-4">
           {tiers.map((tier, idx) => (
-            <Card key={idx} className={`p-6 border-2 relative flex flex-col h-full ${tier.popular ? "border-(--primary) shadow-lg" : "border-(--outline)"}`}>
+            <Card key={idx} className={`p-5 border-2 relative flex flex-col h-full ${tier.popular ? "border-(--primary) shadow-lg" : "border-(--outline)"}`}>
               {tier.popular && (
                 <Badge variant="filled-static" size="chip-small" className="absolute -top-3 left-1/2 -translate-x-1/2 font-heading">
                   Популярный
                 </Badge>
               )}
-              <h4 className="font-heading text-xl font-bold">{tier.name}</h4>
-              <div className="text-4xl font-heading font-bold my-4">
+              <h4 className="font-heading text-xl font-bold mb-1">{tier.name}</h4>
+              <div className="text-3xl font-heading font-bold my-3">
                 {tier.price}
-                <span className="text-sm font-heading font-medium text-(--on-bg-low)">{tier.period}</span>
+                <span className="text-xs font-heading font-medium text-(--on-bg-low)">{tier.period}</span>
               </div>
-              <ul className="space-y-2 mb-6 text-sm font-sans text-(--on-bg-medium) flex-1">
+              <ul className="space-y-1.5 mb-4 text-sm font-sans text-(--on-bg-medium) flex-1">
                 {tier.features.map((f, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <CheckCircleIcon className="size-4 text-(--success)" />
+                    <CheckCircleIcon className="size-4 text-(--success) shrink-0 mt-0.5" />
                     {f}
                   </li>
                 ))}
               </ul>
-              <Button variant="filled" className="w-full mt-auto font-heading" onClick={() => handleBuyTicket(tier.name)}>
+              <Button variant="filled" className="w-full mt-auto font-heading h-10 text-sm" onClick={() => handleBuyTicket(tier.name)}>
                 {tier.cta}
               </Button>
             </Card>

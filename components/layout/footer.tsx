@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-(--outline) pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-sans text-(--on-bg-low)">
-          <span>&copy; 2030 CUZOI ALX-9. Демонстрационный проект.</span>
+          <span>&copy; 2030 ALX-9. Демонстрационный проект.</span>
           <span>Design & Code: Niyaz Gimadiev</span>
         </div>
       </Container>

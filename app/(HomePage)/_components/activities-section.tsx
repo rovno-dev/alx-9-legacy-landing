@@ -9,10 +9,10 @@ export default function ActivitiesSection() {
 
   const eventActivities = useMemo(
     () => [
-      { title: "Встреча с Чужим будущего", description: "Уникальный интерактивный опыт в окружении кибернетического Чужого.", category: "experience", image: "https://picsum.photos/seed/alx9/400/500" },
-      { title: "Демонстрация технологий", description: "Живые сенсоры и алгоритмы реального времени, управляющие светом и звуком.", category: "demo", image: "https://picsum.photos/seed/alx9-tech/400/500" },
-      { title: "Иммерсивные VR-опыты", description: "Погружение в цифровой ландшафт через шлем виртуальной реальности.", category: "vr", image: "https://picsum.photos/seed/alx9-vr/400/500" },
-      { title: "Арт-зона", description: "«Фантастика глазами науки» — экспозиция цифрового искусства и инженерии.", category: "art", image: "https://picsum.photos/seed/alx9-art/400/500" },
+      { title: "Встреча с Чужим будущего", description: "Уникальный интерактивный опыт в окружении кибернетического Чужого.", category: "experience", image: "/home-page/alx-1.png" },
+      { title: "Демонстрация технологий", description: "Живые сенсоры и алгоритмы реального времени, управляющие светом и звуком.", category: "demo", image: "/home-page/alx-2.jpg" },
+      { title: "Иммерсивные VR-опыты", description: "Погружение в цифровой ландшафт через шлем виртуальной реальности.", category: "vr", image: "/home-page/alx-3.jpg" },
+      { title: "Арт-зона", description: "«Фантастика глазами науки» — экспозиция цифрового искусства и инженерии.", category: "art", image: "/home-page/alx-4.png" },
     ],
     []
   );
@@ -20,10 +20,10 @@ export default function ActivitiesSection() {
   const filteredActivities = eventFilter === "all" ? eventActivities : eventActivities.filter((a) => a.category === eventFilter);
 
   return (
-    <section className="py-20 md:py-28 bg-(--card)" id="event">
+    <section className="py-10 md:py-16 bg-(--card)" id="event">
       <Container>
         <span className="inline-block text-xs font-heading font-semibold uppercase tracking-wider text-(--primary) mb-4">
-          { `{ ЧТО ЖДЕТ НА МЕРОПРИЯТИИ }` }
+          {`{ ЧТО ЖДЕТ НА МЕРОПРИЯТИИ }`}
         </span>
         <h2 className="text-display-3 md:text-display-2 font-heading text-(--on-bg-high) mb-6">
           Погрузитесь в будущее
@@ -37,9 +37,8 @@ export default function ActivitiesSection() {
             <button
               key={filter}
               onClick={() => setEventFilter(filter)}
-              className={`px-4 py-2 rounded-full text-sm font-heading font-medium transition-colors ${
-                eventFilter === filter ? "bg-(--primary) text-white" : "bg-(--bg) text-(--on-bg-low) hover:bg-(--state-hover)"
-              }`}
+              className={`px-4 py-2 rounded-full text-sm font-heading font-medium transition-colors ${eventFilter === filter ? "bg-(--primary) text-white" : "bg-(--bg) text-(--on-bg-low) hover:bg-(--state-hover)"
+                }`}
             >
               {filter === "all" && "Все"}
               {filter === "experience" && "Встреча"}

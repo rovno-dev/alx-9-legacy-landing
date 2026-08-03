@@ -4,11 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils";
 import localFont from 'next/font/local'
 import { ThemeProvider } from "@/providers/theme-provider";
-import BottomAppBar from "@/components/layout/bottom-app-bar";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 
-// Import your fonts
 export const NotoSans = localFont({
   src: '../public/fonts/NotoSans.woff2',
   variable: '--font-sans',
@@ -20,8 +18,32 @@ export const Oswald = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Unideka UI",
-  description: "Framework-agnostic, AI-driven design system based on shadcn",
+  title: {
+    template: '%s | ALX-9',
+    default: 'ALX-9 — Интерактивная аудиовизуальная инсталляция',
+  },
+  description: 'Погружение в кибернетический организм на стыке биомиметики и машинного обучения. Интерактивная инсталляция ALX-9.',
+  openGraph: {
+    title: 'ALX-9 — Интерактивная аудиовизуальная инсталляция',
+    description: 'Погружение в кибернетический организм на стыке биомиметики и машинного обучения.',
+    url: 'https://alx9.vercel.app',
+    siteName: 'ALX-9',
+    images: [
+      {
+        url: 'https://picsum.photos/seed/cyber/1200/630',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'ru_RU',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ALX-9 — Интерактивная аудиовизуальная инсталляция',
+    description: 'Погружение в кибернетический организм на стыке биомиметики и машинного обучения.',
+    images: ['https://picsum.photos/seed/cyber/1200/630'],
+  },
   icons: {
     icon: '/favicon.png',
   },
@@ -34,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ru"
       className={cn(NotoSans.className, "font-sans")}
       suppressHydrationWarning
     >
@@ -61,11 +83,10 @@ export default function RootLayout({
         <ThemeProvider>
           <TooltipProvider>
             <Header />
-            <main className="mt-[46px] md:mt-[70px] mb-[100px]">
+            <main className="mt-[70px]">
               {children}
             </main>
             <Footer />
-            {/* <BottomAppBar /> */}
           </TooltipProvider>
         </ThemeProvider>
       </body>
